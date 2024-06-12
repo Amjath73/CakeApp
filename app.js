@@ -30,6 +30,31 @@ app.get("/view", (req, res) => {
     )
 })
 
+app.post("/search", (req, res) => {
+    let input = req.body
+   cakemodel.find(input).then(
+        (data) => { res.json(data) }
+    ).catch(
+        (error) => {
+            res.json(error)
+        }
+    )
+})
+
+app.post("/delete",(req,res)=>{
+    let input=req.body
+   cakemodel.findByIdAndDelete(input._id).then(
+        (response)=>{
+        res.json({"status":"success"})
+        }
+    ).catch(
+        (error)=>
+            {
+                res.json({"status":"error"})
+            }
+    )
+})
+
 app.listen(8081, ()=>{
     console.log("server started")
 
